@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokémon Trivia Quiz</title>
+    <script src="pokemonTriva.js"> </script>
+    <link rel="stylesheet" href="pkmnStyle.css">
+</head>
+<body>
+    <h1>Pokémon Trivia Quiz</h1>
+    <p>Click the button to get a random Pokémon trivia question:</p>
+    <button id="quizButton">Get Random Question</button>
+    <div id="questionContainer">
+        <p id="questionText"></p>
+        <p id="rating"></p>
+        <form id="answerForm">
+            <!-- Radio buttons for multiple-choice options -->
+        </form>
+        <button type="button" id="checkAnswer">Check Answer</button>
+        <p id="result"></p>
+    </div>
+    <script>
+
+        const quizButton = document.getElementById("quizButton");
+        const questionContainer = document.getElementById("questionContainer");
+        const questionText = document.getElementById("questionText");
+        const answerForm = document.getElementById("answerForm");
+        const checkAnswerButton = document.getElementById("checkAnswer");
+        const resultText = document.getElementById("result");
+        const ratingText = document.getElementById("rating");
+
+        let currentQuestion = null;
+        let rightAnswers = 0;
+        let wrongAnswers = 0;
+        let rating = "Beginner";
+
+        function updateRating() {
+            const totalAnswers = rightAnswers + wrongAnswers;
+            if (totalAnswers >= 5) {
+                const accuracy = (rightAnswers / totalAnswers) * 100;
+
+                if (accuracy >= 90) {
+                    rating = "Pokémon Master";
+                } else if (accuracy >= 70) {
+                    rating = "Trainer Extraordinaire";
+                } else if (accuracy >= 50) {
+                    rating = "Experienced Trainer";
+                } else {
+                    rating = "Novice Trainer";
+                }
+            }
+
+            ratingText.textContent = `Rating: ${rating} (${rightAnswers}/${totalAnswers})`;
+        }
+
+        function getNextQuestion() {
+            currentQuestion = questions[Math.floor(Math.random() * questions.length)];
+            questionText.textContent = currentQuestion.question;
+
+            // Clear previous options
+            answerForm.innerHTML = "";
+
+            // Add options as radio buttons
+            currentQuestion.options.forEach((option, index) => {
+                const optionInput = document.createElement("input");
+                optionInput.type = "radio";
+                optionInput.name = "answerOption";
+                optionInput.value = option;
+                optionInput.id = `option${index}`;
+
+                const optionLabel = document.createElement("label");
+                optionLabel.textContent = option;
+                optionLabel.setAttribute("for", `option${index}`);
+
+                answerForm.appendChild(optionInput);
+                answerForm.appendChild(optionLabel);
+                answerForm.appendChild(document.createElement("br"));
+            });
+
+            resultText.textContent = "";
+            checkAnswerButton.textContent = "Check Answer";
+        }
+
+        quizButton.addEventListener("click", () => {
+            getNextQuestion();
+            updateRating(); // Display rating when question is loaded
+        });
+
+        checkAnswerButton.addEventListener("click", () => {
+            if (currentQuestion) {
+                const selectedOption = document.querySelector("input[name='answerOption']:checked");
+                if (selectedOption) {
+                    const userAnswer = selectedOption.value;
+                    const correctAnswer = currentQuestion.answer;
+                    if (userAnswer === correctAnswer) {
+                        resultText.textContent = "Correct! 🎉";
+                        rightAnswers++;
+                    } else {
+                        resultText.textContent = `Wrong. The correct answer is: ${correctAnswer}`;
+                        wrongAnswers++;
+                    }
+                    updateRating();
+                } else {
+                    resultText.textContent = "Please select an answer.";
+                }
+                checkAnswerButton.textContent = "Next Question";
+                currentQuestion = null;
+            } else {
+                getNextQuestion();
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+

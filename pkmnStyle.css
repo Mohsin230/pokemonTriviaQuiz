@@ -1,0 +1,87 @@
+body {
+    font-family: "Arial", sans-serif;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    background-color: #FDB813; /* Pikachu yellow */
+    animation: animateBackground 20s linear infinite;
+}
+
+@keyframes animateBackground {
+    0% {
+        background-color: #FDB813; /* Pikachu yellow */
+    }
+    33% {
+        background-color: #58ABF6; /* Water-type blue */
+    }
+    66% {
+        background-color: #F08030; /* Fire-type orange */
+    }
+    100% {
+        background-color: #FDB813; /* Pikachu yellow */
+    }
+}
+
+h1 {
+    text-align: center;
+    color: #e54833; /* Pokémon Red */
+}
+
+#questionContainer {
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    margin: 20px auto;
+    width: 80%;
+}
+
+#quizButton {
+    background-color: #e54833;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+#quizButton:hover {
+    background-color: #ff695e; /* Slightly lighter red on hover */
+}
+
+#answerForm {
+    text-align: left;
+    margin-top: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+input[type="radio"] {
+    margin-right: 10px;
+}
+
+#checkAnswer {
+    background-color: #e54833;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+#checkAnswer:hover {
+    background-color: #ff695e; /* Slightly lighter red on hover */
+}
+
+#result {
+    font-weight: bold;
+    margin-top: 20px;
+}
